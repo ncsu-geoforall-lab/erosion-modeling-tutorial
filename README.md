@@ -26,9 +26,9 @@ use the following commands to update the website:
 Authors
 -------
 
- * Helena Mitasova, North Carlina State University, NCSU OSGeoREL
- * Anna Petrasova, North Carlina State University, NCSU OSGeoREL
- * Vaclav Petras, North Carlina State University, NCSU OSGeoREL
+ * Helena Mitasova, North Carolina State University, NCSU OSGeoREL
+ * Anna Petrasova, North Carolina State University, NCSU OSGeoREL
+ * Vaclav Petras, North Carolina State University, NCSU OSGeoREL
  * Steve Warren
  * Matt Hohmann
  * Niels G. Svendsen
