@@ -15,6 +15,14 @@ commands to update the website:
     git merge master
     git push
 
+If you don't keep separate clone just for the `gh-pages` branch, you can
+use the following commands to update the website:
+
+    git pull
+    git checkout gh-pages
+    git merge master
+    git checkout master
+
 Authors
 -------
 
