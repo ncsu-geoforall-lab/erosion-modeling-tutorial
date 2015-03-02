@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Erosion modeling tutorial: Theoretical background</title>
+    <link rel="stylesheet" href="ncsuosgeorel_assign.css">
+</head>
+<body>
+<div id="container">
+
+<nav>
+<ul class="nav">
+<li><a href="index.html">Overview</a></li>
+<li><a href="intro.html">Introduction</a></li>
+<li><a href="erdep_theory.html">Theory</a></li>
+<li><a href="grassgis.html">GRASSGIS</a></li>
+<li><a href="arcgis.html">ARCGIS</a></li>
+<li><a href="data.html">Data</a></li>
+<li><a href="resources.html">Resources</a></li>
+</ul>
+</nav>
+
+
+<h1>Soil erosion and deposition modeling</h1>
+<h2>Theoretical background</h2>
+
+<p style="border-top-style: none; border-bottom-style: solid; border-width: 5px; border-color: rgb(130, 130, 130); padding-top: 5px; padding-bottom: 5px;">
+Helena Mitasova
+</p>
+
+Landscape potential for soil erosion and deposition can be estimated and mapped using
+Unit Stream Power Based Erosion Deposition model (USPED).
+The concept was proposed by Moore and Burch (1986) as a model of sediment transport limited case of erosion/deposition 
+and implemented in GIS by Mitasova et al. (1996) as part of SERDP project (REF).
+<!--<i>should we keep the name or rename it EDMOD (erosion/deposition model) or something else?,
+USPED is a little bit misleading becuase there are no streams involved in this modeling approach</i>-->
+<p>
+USPED combines the Universal Soil Loss Equation USLE parameters and upslope contributing area to estimate sediment flow 
+and then erosion and deposition rates are computed as change in sediment flow in the direction of steepest slope.
+<p>
+The general equation for USLE is 
+<p>
+<center><i>E = R.K.L.S.C.P </i></center>
+<p>
+where 
+<br><i>E</i> is average annual soil loss in ton/(acre.year) = 0.2242kg/(m2.year) = 2.242ton/(ha.year), 
+<br><i>R</i> is rainfall factor in (hundreds of ft-tonf.in)/(acre.hr.year) = 17.02(MJ.mm)/(ha.hr.year), 
+<br><i>K</i> is soil erodibility factor in (ton acre.hr)/(hundreds of acre ft-tonf.in) = 0.1317(ton.ha.hr)/(ha.MJ.mm), 
+<br><i>LS</i> is a dimensionless topographic (length-slope) factor, 
+<br><i>C</i> is a dimensionless land cover factor, and 
+<br><i>P</i> is a dimensionless prevention measures factor. 
+
+<P>
+The modified 3D topographgic factor <i>LS3D</i>, representing topographic potential for erosion at a point on the hillslope, 
+is a function of the upslope contributing area per unit width and the slope angle:
+
+<center><i>LS = (m + 1) (U/22.1)^m (sin β/0.09)^n</i></center>
+<p>
+where
+<br><i> U</i> is the upslope area per unit width (measure of water flow) in meters (m^2/m), 
+<br><i>β</i> is the slope angle in degree, 
+<br>22.1 is the length of the standard USLE plot in meters, 
+<br>0.09 = 9% = 5.15◦ is the slope of the standard USLE plot. 
+<br>The values of exponents range for <i>m = 0.2 − 0.6</i> and <i>n = 1.0 − 1.3</i>, 
+where the lower values are used for prevailing sheet flow and higher values for prevailing rill flow.
+
+<p>
+<b>USPED model</b>
+<p>
+We further modify the <i>LS3D</i> factor to represent topographic component of sediment 
+transport capacity of overland flow <i>LST</i>:
+<p>
+<center><i>LST = U^m.(sinβ)^n</i></center>
+</p>
+and then sediment flow <i>T</i> at sediment transport capacity is estimated as:
+<p>
+<center><i>T = R.K.C.P.U^m.(sinβ)^n</i></center>
+<p>
+where
+<br> <i>R, K, C, P, U, β</i> are the same as in modified USLE, 
+and <i>U, β</i> are not normalized, because 
+<br><i>T</i> is an estimate of sediment flow [kg/(m.s)] or [ton.m/(ha.year)] = [ton/(10000m.year)],
+ (rather than soil loss <i>E</i> [kg/(m2.s)]).
+<p>
+The net erosion/deposition <i>D</i> is then computed as a divergence of sediment flow 
+(change in a 2D field representing sediment flow in the direction of elevation surface gradient):
+<p>
+<center><i>D = ∇ · (T s0) = ∂(T cos α)/∂x + ∂(T sin α)/∂y </i></center>
+<p>
+where <br><i>α</i> in degrees is the aspect of the terrain surface (direction of flow). 
+We get <i>D</i> in [kg/(m2s)] by dividing <i>T</i> [kg/(ms)]/dx[m] or <i>T</i> [ton/10000m.year]/dx[m] = <i>D</i>[ton/(10000m2.year)] = <i>D</i>[(ton/ha.year)]
+<p>
+To make the equation easy to implement in any GIS with basic terrain analysis support, the erosion/deposition
+equation can be rewritten using the following relationship between partial derivatives and surface slope and aspect
+<p>
+<center>ADD EQ </center>
+</p>
+<p>
+The exponents <i>m, n</i> control the relative influence of water and slope terms and reflect the impact of different types of flow. The typical range of values is <i>m = 1.0 − 1.6, n = 1.0 − 1.3</i>, with the higher values reflecting the pattern for prevailing rill erosion with more turbulent flow when erosion sharply increases with the amount of water. Lower exponent values close to <i>m = n = 1</i> better reflect the pattern of compounded, long term impact of both rill and sheet erosion and averaging over a long term sequence of large and small events.
+
+<p>
+<!--<img src="./img_erdep/bals_strpower.png" width=200>-->
+<center>
+<img src="./img_erdep/bals_erdepm1.png" width=200>
+<img src="./img_erdep/bals_erdepm16.png" width=200>
+<img src="./img_erdep/bals_erdepvar.png" width=200>
+</center>
+ 
+ </div>
+<small>&copy; 2014 NCSU OSGeoREL, license <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a></small>
+
+</div>
+</body>
+</html>

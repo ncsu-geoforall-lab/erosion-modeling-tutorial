@@ -1,0 +1,6 @@
+1:high erosion 
+2:moderate erosion 
+3:low erosion 
+4:low deposition 
+5:moderate deposition 
+6:high deposition 

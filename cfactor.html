@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Erosion and deposition modeling</title>
+    <link rel="stylesheet" href="ncsuosgeorel_assign.css">
+</head>
+<body>
+<div id="container">
+
+<nav>
+<ul class="nav">
+<li><a href="index.html">Overview</a></li>
+<li><a href="intro.html">Introduction</a></li>
+<li><a href="erdep_theory.html">Theory</a></li>
+<li><a href="grassgis.html">GRASSGIS</a></li>
+<li><a href="arcgis.html">ARCGIS</a></li>
+<li><a href="data.html">Data</a></li>
+<li><a href="resources.html">Resources</a></li>
+</ul>
+</nav>
+
+
+<h1>Erosion and deposition modeling tutorial</h1>
+<h2>C-factor estimation</h2>
+
+<p style="border-top-style: none; border-bottom-style: solid; border-width: 5px; border-color: rgb(130, 130, 130); padding-top: 5px; padding-bottom: 5px;">
+Steve Warren, Matt Hohmann, Tom, Ruzicki, Helena Mitasova
+</p>
+DRAFT - UNDER DEVELOPMENT, finalize regressions using landsat8, add photos to help assign C-factor
+<P>
+Fort Campbell:
+<pre>
+   Forested areas: C=0.001 (Wischmeier and Smith, Table 11), 
+   OR 0.003 (Dissmeyer and  Foster, Table 3) x 0.5 (Dissmeyer and Foster, Table 5) = 0.0015
+ 
+   Meadows: C=0.013 (Wischmeier and Smith, Table 10)
+ 
+   Ag fields: regress imagery with field-determined C-factors  C-factors
+</pre>
+<P> 
+Yakima:
+<pre>
+   All areas: regress field-determined C-factors multiplied by 0.1
+</pre>
+<P> 
+Fort Hood:
+<pre>
+ Forested areas (as determined by imagery):  C=0.002 (Dissmeyer and Foster Table 3 x Table 5)
+ 
+  All non-wooded areas: regress imagery with field determined C-factors multiplied by 0.1
+</pre>
+<P> 
+Schofield Barracks:
+<pre>
+ All forested areas: C=0.0001
+ 
+  All non-forested areas: regress imagery with field based C-factors multiplied by 0.1
+</pre>
+<P> 
+Eglin AFB:
+<pre>
+  Forested areas: see if it is possible to differentiate levels of forest canopy using imagery
+ 
+   Non-forested areas:  see Ft. Hood
+</pre>
+<p>
+<img src="./img_erdep/hood_ndvi_i.jpg" height=150>
+<img src="./img_erdep/hood_cfac_i.jpg" height=150>
+<img src="./img_erdep/yakima_ndvi_i.jpg" height=150>
+<img src="./img_erdep/yakima_cfac_i.jpg" height=150>
+<p>
+<p>
+<p>
+
+ </div>
+<small>&copy; 2014 NCSU OSGeoREL, license <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a></small>
+
+</div>
+</body>
+</html>

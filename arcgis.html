@@ -8,7 +8,19 @@
 <body>
 <div id="container">
 
-<h1>Erosion modeling tutorial</h1>
+<nav>
+<ul class="nav">
+<li><a href="index.html">Overview</a></li>
+<li><a href="intro.html">Introduction</a></li>
+<li><a href="erdep_theory.html">Theory</a></li>
+<li><a href="grassgis.html">GRASSGIS</a></li>
+<li><a href="arcgis.html">ARCGIS</a></li>
+<li><a href="data.html">Data</a></li>
+<li><a href="resources.html">Resources</a></li>
+</ul>
+</nav>
+
+<h1>Soil erosion and deposition modeling</h1>
 <h2>ArcGIS workflow</h2>
 
 <p style="border-top-style: none; border-bottom-style: solid; border-width: 5px; border-color: rgb(130, 130, 130); padding-top: 5px; padding-bottom: 5px;">
@@ -19,198 +31,135 @@ Helena Mitasova, Anna Petrasova, Vaclav Petras, ...
 See also <a href="grassgis.html">GRASS GIS workflow</a>.
 </p>
 
-
-<p>Resources:
-<a href="http://www.lib.ncsu.edu/gis/virtcamp.html">ESRI virtual campus</a>
-
-
-<pre>
-Topic: Erosion modeling
-
-Task: Compute soil detachment and net erosion/deposition using simple GIS-based models
-
-</pre>
+<!--<p>Resources: <a href="http://www.lib.ncsu.edu/gis/virtcamp.html">ESRI virtual campus</a>
+Note: add modelbuider script-->
 
 <p>
-create the assignment working directory (folder) .\Assign12<br>
-
 start ArcMap<br>
 
 <pre>
 Start->Programs->ArcGIS->ArcMap
-
 </pre>
 
-<p>
-Check out a Spatial Analyst Extension license<br>
+<p> Check out a Spatial Analyst Extension license<br>
 
 <pre>
 Under Tools->Extensions make sure there is a check next to 'Spatial Analyst'
 Select View->Toolbars->Spatial Analyst to activate the extension
-
 </pre>
 
-<p>
-Compute a map of soil detachment rate using RUSLE3d equation which assumes that there is no deposition<br>
-(this represents detachment limited sediment transport by overland flow)<br>
-E = RKLSCP, where LS = 1.4 * (U/22.1)**0.4 * (sin (slope/0.09))**1.2<br>
-E is the annual soil detachment rate (soil loss)<br>
-R is the rainfall, K is the soil, C is the land cover and P is the preventive measures factor<br>
-LS is the topography factor, U is contributing area per unit width (function of flowaccumulation)<br>
-for units and explanation of constants see <a href="http://courses.ncsu.edu/mea582/common/GIS_anal_assign/erosion_notes2.pdf"><b>Erosion modeling notes</b></a><br>
-
-
-First compute slope, and flowaccumulation for the elevation raster map e_lid792 (NOT elid_792)<br>
-
+<p>Display the input layers and baseline data
+<br><i>Note: the data need to be clipped to area1 for the tutorial</i>
 
 <pre>
 In ArcMap
-Add the raster feature layer: ncrast.mdb/e_lid792  (NOT elid_792)
-Open the ArcToolbox
+Add the raster feature layer: ndvi
+Add the raster feature layer: soils_kfac
+Add the raster feature layer: elevation
+Add the line feature layer: streams
+Add the line feature layer: roads
+</pre>
+<center>
+<a href="./img_erdep/ndvi.jpg"><img src="./img_erdep/ndvi_i.jpg"></a>&nbsp;
+<a href="./img_erdep/kfactor.jpg"><img src="./img_erdep/kfactor_i.jpg"></a>&nbsp;
+<a href="./img_erdep/elevation_shade.jpg"><img src="./img_erdep/elevation_shade_i.jpg" ></a>
+</center>
 
+<p> Set your workspace<br>
+
+<pre>
+In ArcMap
+Open the ArcToolbox
+Set your Workspace and Scratch Workspace to .\usped
+Hint: Geoprocessing->Environments->Workspace
 </pre>
 
-<p>
-Compute slope_1m map using the Slope function<br>
-
+<p> Compute slope map using the Slope function<br>
 
 <pre>
 Select 'Spatial Analyst Tools->Surface->Slope'
-Set 'Input' to 'e_lid792'
-Set 'Output Raster Dataset' to '.\Assign12\slope_1m'
+Set 'Input' to 'elevation'
+Set 'Output Raster Dataset' to '.\usped\slope'
 keep DEGREES for units
 Click 'OK'
-
 </pre>
 
-<p>
-Compute the flow accumulation map Flowacc<br>
-
-
-<pre>
-Set your Workspace and Scratch Workspace to .\Assign12.
-Hint: Geoprocessing->Environments->Workspace
-
-</pre>
-
-<p>
-Using the Spatial Analyst Extension, perform the following:<br>
-
-
-<pre>
-Compute Fill input=e_lid792 output=Fill_e_lid
-Compute FlowDirection input=Fill_e_lid ouput=FlowDir_fil
-Compute FlowAccumulation input=FlowDir_fil output=Flowacc
-
-</pre>
-
-<p>
-
-Compute a map of soil detachment rate using RUSLE3d equation<br>
-Build an expression in the Spatial Analyst Raster Calculator for lsfac map<br>
-using the Flowacc and slope_1m layers you just generated.<br>
-Note that the lsfac map represents the topographic factor LS used in the RUSLE3d model<br>
-Flowacc map multiplied by resolution is the contributing area per unit width U<br>
-the surface slope is the earlier computed slope_1m layer<br>
-
-
-<pre>
-In the ArcToolbox, Select 'Spatial Analyst->Map Algebra->Raster Calculator
-
-</pre>
-
-<p>
-Type in the expression for lsfac layer (make sure you have spaces around operators)<br>
-slope should be in radians,<br>
-flowaccumulation is in number of cells so we multiply by resolution<br>
-
-
-<pre>
-1.4 * (Power("Flowacc" * 1. / 22.1 , 0.4) * Power((Sin(("slope_1m" / 0.09 )* math.pi/180.0) ) , 1.2))
-Set the output raster to lsfac
-Click 'OK'
-
-</pre>
-
-<p>
-Build the expression for soil detachment rate E (soil loss) s_loss<br>
-cfactb is the land cover factor (C), soils_kf is the soil erodibility (K)<br>
-From ncrast.mdb add: cfactb (C) and soil factor soils_kf (K) to your project.<br>
-Hint: hold down control key to select multiple  layers<br>
-the rainfall factor (R) is set here to be 270.0<br>
-the prevention measures factor (P) is here taken to = 1.0<br>
-if the expression does not work try moving the constant to the end of expression<br>
-
-
-<pre>
-270.0 * "cfactb" * "lsfac" * "soils_kf"
-Click 'OK'
-
-Adjust color table for the s_loss map - histogram equalized color ramp may be needed
-Find average soil loss rate in the area from the s_loss map (in Properties:Source)
-
-</pre>
-
-<p>
-
-USPED model<br>
-Compute net erosion and deposition as a divergence of sediment flow vector field<br>
-note that custom color tables that cover entire range of values<br>
-including negative are important in this section<br>
-
-We have already computed slope_1m and flowaccumulation, but we will also need direction of flow<br>
-Compute aspect_1m map (direction of flow, direction of gradient vector) using the Aspect function<br>
+<p>Compute aspect map (direction of flow, direction of gradient vector) using the Aspect function<br>
 
 <pre>
 Select 'Spatial Analyst Tools->Surface->Aspect'
-Set 'Input' to 'e_lid792'
-Set 'Output Raster Dataset' to '.\Assign12\aspect_1m'
+Set 'Input' to 'elevation'
+Set 'Output Raster Dataset' to '.\usped\aspect'
 keep DEGREES for units
 Click 'OK'
-
 </pre>
 
-<p>
-Build an expression for sflowtopo (topographic factor LS for sediment flow T)<br>
-using the Raster Calculator<br>
-For the exponents use m=n=1, resolution is 1.<br>
-
+<p> Compute the flow accumulation map Flowacc<br>
+Using the Spatial Analyst Extension, perform the following:<br>
 
 <pre>
-"Flowacc" * 1. * Sin("slope_1m" * math.pi/180.0)
-output raster = sflowtopo
+Compute Fill input=elevation output=fill_elevation
+Compute FlowDirection input=fill_elevation ouput=flowdir
+Compute FlowAccumulation input=flowdir output=flowacc
+</pre>
 
+<center>
+<a href="./img_erdep/aslope.jpg"><img src="./img_erdep/aslope_i.jpg"></a>&nbsp;
+<a href="./img_erdep/aaspect.jpg"><img src="./img_erdep/aaspect_i.jpg"></a>
+<a href="./img_erdep/flowacc.jpg"><img src="./img_erdep/flowacc_i.jpg" ></a>
+</center>
+
+<p> Compute topographic component (factor) of sediment transport capacity LST<br> 
+Build an expression for sflowtopo using the Raster Calculator<br>
+For the exponents use m=n=1, resolution is 10.<br>
+
+<pre>
+flowacc" * 10. * Sin("slope" * math.pi/180.0)
+output raster = sflowtopo
+Click "OK"
 </pre>
 
 <p>
 OR use m=1.3 and n=1.2 for study areas with extensive rills,<br>
 in this case, channels/streams will have large erosion rates due to high values of flowaccumulation<br>
 
-
 <pre>
-(Power("Flowacc" * 1. , 1.3) * Power((Sin("slope_1m" * math.pi/180.0)), 1.2))
-output raster = sflowtopo
-CLick "OK"
-
+Power("flowacc" * 10. , 1.3) * Power((Sin("slope" * math.pi/180.0)), 1.2)
+output raster = sflowtopo_rill
+Click "OK"
 </pre>
 
 <p>
-Compute divergence of sediment flow,<br>
-
-first compute components of sediment flow in x and y direction<br>
-
+Compute sediment flow by combining the rainfall, soil and land cover factors 
+with the topographic sediment transport factor<br>
+Build an expression using a constant value of 270. for rainfall intensity factor
 
 <pre>
-Build an expression for: qsx
-"sflowtopo" * "soils_kf" * "cfactb" * 270. * Cos((- "aspect_1m" + 450.) * math.pi / 180.0) 
-Output raster = qsx
+270. * "sflowtopo" * "soils_kfac" * "cover_cfac"
+output raster = sedflow
+Click "OK"
+</pre>
+
+The images show "sflowtopo", "cover_cfac", and "sedflow"
+<center>
+<a href="./img_erdep/asflowtopo.jpg"><img src="./img_erdep/asflowtopo_i.jpg"></a>&nbsp;
+<a href="./img_erdep/cfactor_shade.jpg"><img src="./img_erdep/cfactor_shade_i.jpg" ></a>
+<a href="./img_erdep/asedflow.jpg"><img src="./img_erdep/asedflow_i.jpg"></a>
+</center>
+
+<p>
+Compute components of sediment flow in x and y direction<br>
+
+<pre>
+Build an expression for: sedflow_x
+"sedflow" * Cos((- "aspect" + 450.) * math.pi / 180.0) 
+Output raster = sedflow_x
 Click "OK"
 
-Build an expression for: qsy
-"sflowtopo" * "soils_kf" * "cfactb" * 270. * Sin((- "aspect_1m" + 450.) * math.pi / 180.0) 
-Output raster = qsy
+Build an expression for: sedflow_y
+"sedflow" * "Sin((- "aspect_1m" + 450.) * math.pi / 180.0) 
+Output raster = sedflow_y
 Click "OK"
-
 </pre>
 
 <p>
@@ -221,95 +170,91 @@ http://www4.ncsu.edu/~hmitaso/gmslab/reports/cerl99/rep99.html<br>
 <pre>
 In ArcToolbox
 Select 'Spatial Analyst Tools->Surface->Slope'
-Set 'Input' to 'qsx'
-Set 'Output Raster Dataset' to '.\Assign12\Slope_qsx'
+Set 'Input' to 'sedflow_x'
+Set 'Output Raster Dataset' to '.\usped\sedflow_x_slope'
 Keep DEGREES for units
 Click 'OK'
 
-</pre>
-
-<p>
-do the same for Aspect to compute Aspect_qsx<br>
-
-<pre>
 Select 'Spatial Analyst Tools->Surface->Aspect'
-Set 'Input' to 'qsx'
-Set 'Output Raster Dataset' to '.\Assign12\Aspect_qsx'
+Set 'Input' to 'sedflow_x'
+Set 'Output Raster Dataset' to '.\usped\sedflow_x_aspect'
 Click 'OK'
 
 In ArcToolbox
 Select 'Spatial Analyst Tools->Surface->Slope'
-Set 'Input' to 'qsy'
-Set 'Output Raster Dataset' to '.\Assign12\Slope_qsy'
+Set 'Input' to 'sedflow_y'
+Set 'Output Raster Dataset' to '.\usped\sedflow_y_slope'
 Keep DEGREES for units
 Click 'OK'
 
-</pre>
-
-<p>
-do the same for Aspect to compute Aspect_qsy<br>
-
-<pre>
 Select 'Spatial Analyst Tools->Surface->Aspect'
 Set 'Input' to 'qsy'
-Set 'Output Raster Dataset' to '.\Assign12\Aspect_qsy'
+Set 'Output Raster Dataset' to '.\usped\sedflow_y_aspect'
 Click 'OK'
 
 Using the 'Spatial Analyst->Map Algebra->Raster Calculator:
-Build an expression for: qsx_dx
-Cos((- "Aspect_qsx" + 450) * math.pi / 180.0) * Tan("Slope_qsx" * math.pi/180.0)
+Build an expression for: sedflow_dx
+Cos((- "sedflow_x_aspect" + 450) * math.pi / 180.0) * Tan("sedflow_x_slope" * math.pi/180.0)
+Output raster = sedflow_dx
 Click'OK'
 
-Build an expression for: qsy_dy
-Sin((- "Aspect_qsy" + 450) * math.pi / 180.0) * Tan("Slope_qsy" * math.pi/180.0)
+Build an expression for: sedflow_dy
+Sin((- "sedflow_y_aspect" + 450) * math.pi / 180.0) * Tan("sedflow_y_slope" * math.pi/180.0)
+Output raster = sedflow_dy
 Click 'OK'
-
 </pre>
 
-<p>
 Compute net erosion deposition<br>
-
 <pre>
-Build an expression for: erdep
-"qsx_dx" + "qsy_dy"
+Build an expression for: erosion_deposition
+"sedflow_dx" + "sedflow_dy"
+Output raster = erosion_deposition
 Click 'OK'
-
 </pre>
 
 <p>
-Assign an appropriate color classification scheme to the erdep raster and generate a map for the report.<br>
-
-Note: the differences in the erdep are subtle and the default color table will almost assuredly render<br>
+Assign an appropriate color scheme to the erosion_deposition raster <br>
+<i>Change to the actual color ramp</i>
+<!--Note: the differences in the erdep are subtle and the default color table will almost assuredly render<br>
 the erosion deposition map in a way that little detail is revealed. You are free to<br>
 experiment with the the tools in Arc in order to define classification scheme which will<br>
 reveal the erosion/deposition pattern. Here's an option that should yield pretty good contrast<br>
-between erosion and deposition:<br>
-
-Open Layer Properties for the erdep layer<br>
-Under the Symbology tab‚<br>
-Select Classified from options (Unique Values, Classified, Stretched, Discrete) in the left column<br>
-Set Classes to 11<br>
-Choose a broad, divergent color ramp from the Color Ramp drop down field<br>
-that ranges from brown grading through white to green<br>
-Click on Classify<br>
-Edit the eleven break values (located in column on far right in Classification dialog to:<br>
--250000.00  (data minimum)<br>
--50.00<br>
--5.00<br>
--1.00<br>
--0.10<br>
-0.10<br>
-1.00<br>
-5.00<br>
-50.00<br>
-330000.00    (data maximum)<br>
-Click OK<br>
-Click Apply<br>
-
-You should now see the erosion and deposition areas rendered with pretty good contrast.<br>
-
+between erosion and deposition:<br>-->
+<pre>
+Open Layer Properties for the erosion_deposition layer
+Under the Symbology tab
+Select Classified from options (Unique Values, Classified, Stretched, Discrete) in the left column
+Set Classes to 11
+Choose a broad, divergent color ramp from the Color Ramp drop down field
+that ranges from brown grading through white to green
+Click on Classify
+Edit the eleven break values (located in column on far right in Classification dialog to:
+-250000.00  (data minimum)
+-50.00
+-5.00
+-1.00
+-0.10
+0.10
+1.00
+5.00
+50.00
+330000.00    (data maximum)
+Click OK
+Click Apply
+</pre>
+You should now see the erosion and deposition areas rendered with a good contrast.<br>
+<p>
+Classify the erosion and deposition layer into pre-defined classes
 
 <pre>
+ADD CLASSIFICATION HERE
+</pre>
+
+<center>
+<a href="./img_erdep/erosion_deposition.jpg"><img src="./img_erdep/erosion_deposition_i.jpg"></a>&nbsp;
+<a href="./img_erdep/erdep_classified_shade.jpg"><img src="./img_erdep/erdep_classified_shade_i.jpg"></a>
+<!--<a href="./img_erdep/flowacc.jpg"><img src="./img_erdep/flowacc_i.jpg" ></a>-->
+</center>
  
  </div>
 <small>&copy; 2014 NCSU OSGeoREL, license <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a></small>

@@ -1,0 +1,6 @@
+1 red
+2 orange
+3 yellow
+4 200 255 200     #light green
+5 aqua
+6 blue

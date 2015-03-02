@@ -1,0 +1,7 @@
+1:high erosion >10.0
+2:moderate erosion 5.0-10.0
+3:low erosion 0.1-5.0
+4:stable <0.1
+5:low deposition 0.1-5.0
+6:moderate deposition 5.0-10.0
+7:high deposition >10.0
