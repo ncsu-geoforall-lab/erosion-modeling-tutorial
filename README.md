@@ -12,6 +12,7 @@ This repository is using GitHub pages to publish thw website.
 If you have a separate clone for `gh-pages` branch use the following
 commands to update the website:
 
+    git pull
     git merge master
     git push
 
@@ -21,6 +22,7 @@ use the following commands to update the website:
     git pull
     git checkout gh-pages
     git merge master
+    git push
     git checkout master
 
 Authors
