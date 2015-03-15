@@ -2,24 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Erosion and deposition modeling</title>
+    <title>Erosion modeling tutorial: Theoretical background</title>
     <link rel="stylesheet" href="ncsuosgeorel_assign.css">
 </head>
 <body>
 <div id="container">
 
+<header>
+<div id="header-image"></div>
 <nav>
 <ul class="nav">
 <li><a href="index.html">Overview</a></li>
 <li><a href="intro.html">Introduction</a></li>
 <li><a href="erdep_theory.html">Theory</a></li>
-<li><a href="grassgis.html">GRASSGIS</a></li>
-<li><a href="arcgis.html">ARCGIS</a></li>
+<li><a href="grassgis.html">GRASS GIS</a></li>
+<li><a href="arcgis.html">ArcGIS</a></li>
 <li><a href="data.html">Data</a></li>
 <li><a href="resources.html">Resources</a></li>
 </ul>
 </nav>
-
+</header>
+<!-- This is a generated file. Do not edit. -->
 <h1>Soil erosion and deposition modeling</h1>
 <h2>Introduction</h2>
 
@@ -34,11 +37,11 @@ Military training activities can have adverse consequences on natural resources.
 Soil erosion on military training facilities may also create off-site impacts.  Nationally, sediment is the single largest contributor to non-point source runoff pollution.  As much as 92% of suspended sediments in waterways is attributable to non-point sources (Clark et al. 1985). Section 208 of the federal Water Pollution Control Act and section 319 of the 1987 amendment to the federal Clean Water Act require resource managers and planners to assess the extent of non-point source water pollution problems and to develop and implement area-wide best management practices (BMPs) to prevent water pollution from non-point sources.
 <P>
 <p>
-<!--<img src="./img_erdep/gully2r.jpg" width=200>-->
+<!--<img src="./img/gully2r.jpg" width=200>-->
 <center>
-<img src="./img_erdep/gully3r.jpg" width=200>
-<img src="./img_erdep/gully4r.jpg" width=200>
-<img src="./img_erdep/gully5r.jpg" width=200>
+<img src="./img/gully3r.jpg" width=200>
+<img src="./img/gully4r.jpg" width=200>
+<img src="./img/gully5r.jpg" width=200>
 </center>
 <p>
 According to Department of Defense Instruction 4715, Enclosure 3, Section 4.b.4, dated 18 March 2011, the “DoD shall prevent and control soil erosion, and implement soil conservation measures…” in accordance with United States Code, Title 16, Chapter 3B, Soil Conservation.  Measuring soil erosion and resultant sediment deposition in order to determine when an installation is out of compliance is difficult and subject to considerable error and subjectivity. 7 CFR 610.12 prescribes the use of the Universal Soil Loss Equation (USLE; Wischmeier and Smith 1978) and the Revised Universal Soil Loss Equation (RUSLE; Renard et al. 1997) for measuring soil erosion by the Natural Resources Conservation Service (NRCS). At least part of popularity of these models can be attributed to the ease with which they are applied. However, a major drawback of these and even many of the more complex new-generation process-based models (e.g., Water Erosion Prediction Project [WEPP]; Flanagan and Nearing 1995) is the 1-dimensional approach used to account for the effects of topography. Landscapes have generally been treated as homogenous, planar features. Average erosion rates have been assigned to entire hillslopes and watersheds, thus providing no information regarding sources and sinks of eroded materials. Neither approach provides adequate spatially distributed information on erosion necessary to effectively optimize erosion and sediment control efforts.
@@ -49,8 +52,6 @@ A second shortcoming of the USLE and the RUSLE is that they predict soil erosion
 <p>
 Geographic information systems (GIS) provide the capacity to more fully consider the effects of topographic complexity on soil erosion. Application of erosion models within GIS has become increasingly popular as the technology has evolved (e.g., Fistikoglu and Harmancioglu 2002, Shi et al. 2004). Spatially distributed elevation data stored in a GIS can be analyzed to produce slope length (L) and steepness (S) values for any given point in a watershed. More importantly, the effects of flow convergence and divergence can be more fully considered by determination of the upslope area that contributes flow across each point in the watershed. When upslope contributing area is substituted for slope length, the resulting LS-factor is equivalent to the traditional LS-factor on planar surfaces, but has the added benefit of being applicable to complex slope geometries (Moore and Burch, 1986; Moore and Wilson 1992). Equations for the computation of the LS-factor based on upslope contributing area have been developed by Desmet and Govers (1996) and Mitasova et al. (1996). These equations more fully account for topographic complexity by considering both the profile curvature (in the downhill direction) and the tangential curvature (perpendicular to the downhill direction) (Warren et al. 2000). Net erosion or deposition within a grid cell is calculated as the change in sediment transport capacity in the direction of flow. Given the nature and extent of improvements to the traditional USLE/RUSLE that are based on the unit stream power theory (Moore and Burch 1986, Moore and Wilson 1992), the improved version has been named the Unit Stream Power Erosion and Deposition (USPED) model.
 -->
-
-<p>
 <small>&copy; 2014 NCSU OSGeoREL, license <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a></small>
 
 </div>
