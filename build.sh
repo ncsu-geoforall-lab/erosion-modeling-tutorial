@@ -51,7 +51,7 @@ do
     cp $FILE $OUTDIR
 done
 
-for DIR in img tables
+for DIR in img tables documents
 do
     cp -r $DIR $OUTDIR
 done
