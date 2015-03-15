@@ -45,7 +45,8 @@ fi
 
 last_commit=$(git log -n 1  --pretty=format:"%h \"%s\"")
 
-build_dir="../git-and-github-workshop-pages"
+CURRDIR=`pwd`
+build_dir=../`basename $CURRDIR`-pages
 
 cd $build_dir
 
