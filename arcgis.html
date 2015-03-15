@@ -1,25 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Erosion modeling tutorial: ArcGIS workflow</title>
-    <link rel="stylesheet" href="ncsuosgeorel_assign.css">
-</head>
-<body>
-<div id="container">
-
-<nav>
-<ul class="nav">
-<li><a href="index.html">Overview</a></li>
-<li><a href="intro.html">Introduction</a></li>
-<li><a href="erdep_theory.html">Theory</a></li>
-<li><a href="grassgis.html">GRASSGIS</a></li>
-<li><a href="arcgis.html">ARCGIS</a></li>
-<li><a href="data.html">Data</a></li>
-<li><a href="resources.html">Resources</a></li>
-</ul>
-</nav>
-
 <h1>Soil erosion and deposition modeling</h1>
 <h2>ArcGIS workflow</h2>
 
@@ -60,9 +38,9 @@ Add the line feature layer: streams
 Add the line feature layer: roads
 </pre>
 <center>
-<a href="./img_erdep/ndvi.jpg"><img src="./img_erdep/ndvi_i.jpg"></a>&nbsp;
-<a href="./img_erdep/kfactor.jpg"><img src="./img_erdep/kfactor_i.jpg"></a>&nbsp;
-<a href="./img_erdep/elevation_shade.jpg"><img src="./img_erdep/elevation_shade_i.jpg" ></a>
+<a href="./img/ndvi.jpg"><img src="./img/ndvi_i.jpg"></a>&nbsp;
+<a href="./img/kfactor.jpg"><img src="./img/kfactor_i.jpg"></a>&nbsp;
+<a href="./img/elevation_shade.jpg"><img src="./img/elevation_shade_i.jpg" ></a>
 </center>
 
 <p> Set your workspace<br>
@@ -104,9 +82,9 @@ Compute FlowAccumulation input=flowdir output=flowacc
 </pre>
 
 <center>
-<a href="./img_erdep/aslope.jpg"><img src="./img_erdep/aslope_i.jpg"></a>&nbsp;
-<a href="./img_erdep/aaspect.jpg"><img src="./img_erdep/aaspect_i.jpg"></a>
-<a href="./img_erdep/flowacc.jpg"><img src="./img_erdep/flowacc_i.jpg" ></a>
+<a href="./img/aslope.jpg"><img src="./img/aslope_i.jpg"></a>&nbsp;
+<a href="./img/aaspect.jpg"><img src="./img/aaspect_i.jpg"></a>
+<a href="./img/flowacc.jpg"><img src="./img/flowacc_i.jpg" ></a>
 </center>
 
 <p> Compute topographic component (factor) of sediment transport capacity LST<br> 
@@ -142,9 +120,9 @@ Click "OK"
 
 The images show "sflowtopo", "cover_cfac", and "sedflow"
 <center>
-<a href="./img_erdep/asflowtopo.jpg"><img src="./img_erdep/asflowtopo_i.jpg"></a>&nbsp;
-<a href="./img_erdep/cfactor_shade.jpg"><img src="./img_erdep/cfactor_shade_i.jpg" ></a>
-<a href="./img_erdep/asedflow.jpg"><img src="./img_erdep/asedflow_i.jpg"></a>
+<a href="./img/asflowtopo.jpg"><img src="./img/asflowtopo_i.jpg"></a>&nbsp;
+<a href="./img/cfactor_shade.jpg"><img src="./img/cfactor_shade_i.jpg" ></a>
+<a href="./img/asedflow.jpg"><img src="./img/asedflow_i.jpg"></a>
 </center>
 
 <p>
@@ -251,13 +229,7 @@ ADD CLASSIFICATION HERE
 </pre>
 
 <center>
-<a href="./img_erdep/erosion_deposition.jpg"><img src="./img_erdep/erosion_deposition_i.jpg"></a>&nbsp;
-<a href="./img_erdep/erdep_classified_shade.jpg"><img src="./img_erdep/erdep_classified_shade_i.jpg"></a>
-<!--<a href="./img_erdep/flowacc.jpg"><img src="./img_erdep/flowacc_i.jpg" ></a>-->
+<a href="./img/erosion_deposition.jpg"><img src="./img/erosion_deposition_i.jpg"></a>&nbsp;
+<a href="./img/erdep_classified_shade.jpg"><img src="./img/erdep_classified_shade_i.jpg"></a>
+<!--<a href="./img/flowacc.jpg"><img src="./img/flowacc_i.jpg" ></a>-->
 </center>
-
-<small>&copy; 2014 NCSU OSGeoREL, license <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a></small>
-
-</div>
-</body>
-</html>

@@ -1,26 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Erosion modeling tutorial: GRASS GIS workflow</title>
-    <link rel="stylesheet" href="ncsuosgeorel_assign.css">
-</head>
-<body>
-<div id="container">
-
-<nav>
-<ul class="nav">
-<li><a href="index.html">Overview</a></li>
-<li><a href="intro.html">Introduction</a></li>
-<li><a href="erdep_theory.html">Theory</a></li>
-<li><a href="grassgis.html">GRASSGIS</a></li>
-<li><a href="arcgis.html">ARCGIS</a></li>
-<li><a href="data.html">Data</a></li>
-<li><a href="resources.html">Resources</a></li>
-</ul>
-</nav>
-
-
 <h1>Soil erosion and deposition modeling</h1>
 <h2>GRASS GIS workflow</h2>
 
@@ -64,9 +41,9 @@ d.vect area1_10m
 </pre>
 <!--d.rast cover_cfac d.vect roads-->
 <center>
-<a href="./img_erdep/ndvi_area1.jpg"><img src="./img_erdep/ndvi_area1_i.jpg"></a>&nbsp;
-<a href="./img_erdep/soils_kfac.jpg"><img src="./img_erdep/soils_kfac_i.jpg"></a>&nbsp;
-<a href="./img_erdep/elevation_shaded.jpg"><img src="./img_erdep/elevation_shaded_i.jpg" ></a>
+<a href="./img/ndvi_area1.jpg"><img src="./img/ndvi_area1_i.jpg"></a>&nbsp;
+<a href="./img/soils_kfac.jpg"><img src="./img/soils_kfac_i.jpg"></a>&nbsp;
+<a href="./img/elevation_shaded.jpg"><img src="./img/elevation_shaded_i.jpg" ></a>
 </center>
 <p>
 Set computational region to area1_10m and zoom into it
@@ -93,9 +70,9 @@ or run the 3D visualization from command line
 g.gui.wxnviz elevation co=ndvi
 </pre>
 <center>
-<a href="./img_erdep/elev_ndvi_3d.jpg"><img src="./img_erdep/elev_ndvi_3d_i.jpg"></a>&nbsp;
-<a href="./img_erdep/elev_soils_3d.jpg"><img src="./img_erdep/elev_soils_3d_i.jpg"></a>
-<a href="./img_erdep/elevation_3d.jpg"><img src="./img_erdep/elevation_3d_i.jpg" ></a>
+<a href="./img/elev_ndvi_3d.jpg"><img src="./img/elev_ndvi_3d_i.jpg"></a>&nbsp;
+<a href="./img/elev_soils_3d.jpg"><img src="./img/elev_soils_3d_i.jpg"></a>
+<a href="./img/elevation_3d.jpg"><img src="./img/elevation_3d_i.jpg" ></a>
 </center>
 <p>
 Compute input parameters slope, aspect and flowaccumulation.<br>
@@ -106,9 +83,9 @@ r.slope.aspect elevation slo=slope asp=aspect
 r.flow elevation flowacc=flowacc
 </pre>
 <center>
-<a href="./img_erdep/slope_shade.jpg"><img src="./img_erdep/slope_i.jpg"></a>&nbsp;
-<a href="./img_erdep/aspect.jpg"><img src="./img_erdep/aspect_i.jpg"></a>
-<a href="./img_erdep/flowacc_shade.jpg"><img src="./img_erdep/flowacc_shade_i.jpg" ></a>
+<a href="./img/slope_shade.jpg"><img src="./img/slope_i.jpg"></a>&nbsp;
+<a href="./img/aspect.jpg"><img src="./img/aspect_i.jpg"></a>
+<a href="./img/flowacc_shade.jpg"><img src="./img/flowacc_shade_i.jpg" ></a>
 </center>
 <p>
 Compute topographic component (factor) of sediment transport capacity LST
@@ -132,9 +109,9 @@ r.colors sedflow rules=<a href="./tables/sedflow_colors.txt">sedflow_colors.txt<
 <p>
 The images show "sflowtopo", "cover_cfac", and "sedflow"
 <center>
-<a href="./img_erdep/sflowtopo.jpg"><img src="./img_erdep/sflowtopo_i.jpg"></a>&nbsp;
-<a href="./img_erdep/cover_cfac_shaded.jpg"><img src="./img_erdep/cover_cfac_shaded_i.jpg" ></a>
-<a href="./img_erdep/sedflow.jpg"><img src="./img_erdep/sedflow_i.jpg"></a>
+<a href="./img/sflowtopo.jpg"><img src="./img/sflowtopo_i.jpg"></a>&nbsp;
+<a href="./img/cover_cfac_shaded.jpg"><img src="./img/cover_cfac_shaded_i.jpg" ></a>
+<a href="./img/sedflow.jpg"><img src="./img/sedflow_i.jpg"></a>
 </center>
 <p>
 Compute components of sediment flow in x and y direction
@@ -162,9 +139,9 @@ d.legend erosion_deposition at=2,50,2,6 range=-20,20
 g.gui.wxnviz elevation co=erosion_deposition
 </pre>
 <center>
-<a href="./img_erdep/erosiondeposition_shade.jpg"><img src="./img_erdep/erosiondeposition_shade_i.jpg"></a>&nbsp;
-<a href="./img_erdep/erosiondeposition_class_shade.jpg"><img src="./img_erdep/erosiondeposition_class_shade_i.jpg"></a>
-<!--<a href="./img_erdep/flowacc.jpg"><img src="./img_erdep/flowacc_i.jpg" ></a>-->
+<a href="./img/erosiondeposition_shade.jpg"><img src="./img/erosiondeposition_shade_i.jpg"></a>&nbsp;
+<a href="./img/erosiondeposition_class_shade.jpg"><img src="./img/erosiondeposition_class_shade_i.jpg"></a>
+<!--<a href="./img/flowacc.jpg"><img src="./img/flowacc_i.jpg" ></a>-->
 </center>
 
 <p>
@@ -204,8 +181,3 @@ SUM = -2374.473814
 <p>
 divide by 4046 to get total ton per year transported from the watershed<br>
 -->
-
-<small>&copy; 2014 NCSU OSGeoREL, license <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a></small>
-</div>
-</body>
-</html>
