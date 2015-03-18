@@ -46,7 +46,7 @@ fi
 last_commit=$(git log -n 1  --pretty=format:"%h \"%s\"")
 
 CURRDIR=`pwd`
-build_dir=../`basename $CURRDIR`-pages
+build_dir="build"
 
 cd $build_dir
 

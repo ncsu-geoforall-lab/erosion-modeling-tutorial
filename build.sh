@@ -24,7 +24,7 @@ HEAD_FILE=head.html
 FOOT_FILE=foot.html
 
 CURRDIR=`pwd`
-OUTDIR=../`basename $CURRDIR`-pages
+OUTDIR="build"
 
 if [ ! -d "$OUTDIR" ]; then
     mkdir $OUTDIR
