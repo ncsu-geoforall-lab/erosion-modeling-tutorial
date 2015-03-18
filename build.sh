@@ -29,6 +29,7 @@ OUTDIR="build"
 if [ ! -d "$OUTDIR" ]; then
     mkdir $OUTDIR
     echo "Creating directory $OUTDIR automatically."
+    echo "The local build of pages will be in $OUTDIR directory."
     echo "If you are using GitHub pages to create publish the website,"
     echo "you probably want to create this directory by a dedicated script."
 fi

@@ -6,24 +6,25 @@ This is repository for tutorial for erosion modeling in GRASS GIS and ArcGIS.
 Updating the website
 --------------------
 
-This repository is using GitHub pages to publish thw website.
-`master` branch has the same content as `gh-pages` branch.
+This repository is using custom scripts to build the web site and
+GitHub pages to publish the website.
+`master` branch contains "raw" files which are build into a website
+which is in the `gh-pages` branch.
 
-If you have a separate clone for `gh-pages` branch use the following
-commands to update the website:
+If you haven't published pages from your computer use:
 
-    git pull
-    git merge master
-    git push
+    ./get-gh-pages-branch.sh
 
-If you don't keep separate clone just for the `gh-pages` branch, you can
-use the following commands to update the website:
+This will create `build` directory with another clone of the repository
+but it will be switched to `gh-pages` branch. To build the website
+for review use:
 
-    git pull
-    git checkout gh-pages
-    git merge master
-    git push
-    git checkout master
+    ./build.sh
+
+To publish the website use:
+
+    ./publish.sh
+
 
 Authors
 -------
